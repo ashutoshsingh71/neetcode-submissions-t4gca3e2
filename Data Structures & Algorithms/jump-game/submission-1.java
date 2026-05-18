@@ -1,0 +1,26 @@
+class Solution {
+    int [] memo;
+    public boolean canJump(int[] nums) {
+        memo = new int[nums.length];
+        Arrays.fill(memo,-1);
+        return canJump(nums,0);
+    }
+
+    private boolean canJump(int [] nums,int i){
+        if(i >= nums.length-1){
+            return true;
+        }
+        if(memo[i] != -1){
+            return (memo[i] == 1) ? true : false;
+        }
+        int jumps = nums[i];
+        for(int jump = 1;jump<=jumps;jump++){
+            if(canJump(nums,i+jump)){
+                memo[i+jump] = 1;
+                return true;
+            }
+        }
+        memo[i] = 0;
+        return false;
+    }
+}
